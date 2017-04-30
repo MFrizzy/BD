@@ -1,0 +1,31 @@
+TD TOUR DE FRANCE OCTOBRE 2016
+
+
+1- 
+select NomCoureur,NumCoureur from COUREUR;
+
+2-
+select NomEquipe,DirecteurSportif from EQUIPE
+
+3- 
+select NomCoureur,NomEquipe from EQUIPE E,COUREUR C where E.CodeEquipe=C.CodeEquipe 
+
+4-
+select NumEtape,NbKm from ETAPE
+
+5-
+select NomCoureur,NumEtape from TEMPS T,COUREUR C where T.NumCoureur=C.NumCoureur;
+
+6-
+select NomCoureur,TempsRealise from TEMPS T,COUREUR C where T.NumCoureur=C.NumCoureur and NumEtape IN
+(select NumEtape from ETAPE where VilleArrivee='VIRE')
+
+7-
+select NumEtape from ETAPE where NbKm>200
+
+8-
+select NomCoureur from Coureur C, Pays P where C.CodePays=P.CodePays and Nompays='FRANCE' and NumCoureur in
+(select NumCoureur from TEMPS where NumEtape=2)
+
+9-
+select TempsRealise,NomCoureur,NumEtape from TEMPS T,COUREUR C where T.NumCoureur=C.NumCoureur and NomCoureur IN (select NomCoureur from COUREUR where CodePays='ALL')
