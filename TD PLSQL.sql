@@ -133,7 +133,7 @@ from dual;
 UPDATE Ligues
 SET  nbJoueursLigue=nbJoueursParLigue(idLigue);
 
--- 8 Marche pas
+-- 8 
 
 create or replace Procedure affichageInfosTournoi(p_idTournoi IN Tournois.idTournoi%TYPE) is
 	rty_ligne Tournois%ROWTYPE;
@@ -150,23 +150,17 @@ Exception
 		DBMS_OUTPUT.put_Line('Le tournoi ' || p_idTournoi || ' n existe pas');
 end;
 
-create or replace Function affichageInfosTournoi1(p_idTournoi IN Tournois.idTournoi%TYPE) return number is
-	rty_ligne Tournois%ROWTYPE;
+-- 9
+
+create or replace procedure miseAJourNbParticipantsTournoi is
 begin
-	select * into rty_ligne
-	from Tournois
-	where idTournoi=p_idTournoi;
-	DBMS_OUTPUT.put_Line('Identifiant du tournoi : ' || rty_ligne.idTournoi);
-	DBMS_OUTPUT.put_Line('Nom du tournoi : ' || rty_ligne.nomTournoi);
-	DBMS_OUTPUT.put_Line('Lieu du tournoi : ' || rty_ligne.lieuTournoi);
-	DBMS_OUTPUT.put_Line('Nombre de rondes du tournoi : ' || rty_ligne.nbRondesTournoi);
-	return 0;
-Exception
-	when No_data_found then
-		DBMS_OUTPUT.put_Line('Le tournoi ' || p_idTournoi || ' n existe pas');
+	UPDATE Tournois T
+	set nbParticipantsTournoi=(select count(*)
+								from Participer
+								where idtournoi=T.idtournoi);
 end;
 
-
+-- 10
 
 
 
