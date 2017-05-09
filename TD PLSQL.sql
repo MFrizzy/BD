@@ -183,7 +183,12 @@ end;
 
 -- 11
 
-
+create or replace procedure affichageToutTournoi(p_idTournoi IN Tournois.idTournoi%TYPE) is
+begin
+	affichageInfosTournoi(p_idTournoi);
+	-- Trouver pour sauter une ligne
+	affichageParticipantsTournoi(p_idTournoi);
+end;
 
 --
 
