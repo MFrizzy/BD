@@ -186,8 +186,24 @@ end;
 create or replace procedure affichageToutTournoi(p_idTournoi IN Tournois.idTournoi%TYPE) is
 begin
 	affichageInfosTournoi(p_idTournoi);
-	-- Trouver pour sauter une ligne
 	affichageParticipantsTournoi(p_idTournoi);
+end;
+
+-- 12 Pas fini
+
+create or replace procedure affichage JoueursParLigueEtClub(p_idLigue IN Ligues.idLigue%TYPE) is
+	cursor c_clubs is
+		select idClub
+		from Clubs
+		where idLigue=p_idLigue;
+	cursor c_joueurs;
+	rty_club ;
+begin
+	loop
+		exit when c_clubs%NOTFOUND;
+		select * into 
+		DBMS_OUTPUT.put_Line(
+	end loop;
 end;
 
 --
