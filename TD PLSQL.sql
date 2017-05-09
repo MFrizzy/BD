@@ -162,12 +162,34 @@ end;
 
 -- 10
 
+create or replace Procedure affichageParticipantsTournoi(p_idTournoi IN Tournois.idTournoi%TYPE) is
+	rty_ligne Joueurs%ROWTYPE;	
+	cursor c_participantsTournoi  is
+		select *
+		from Joueurs
+		where idJoueur in 	(select idJoueur
+					from Participer P
+					where idTournoi=p_idTournoi)
+		order by eloJoueur desc,nomJoueur;
+begin
+	open c_participantsTournoi;
+	loop
+		fetch c_participantsTournoi into rty_ligne;
+		exit when c_participantsTournoi%NOTFOUND;
+		DBMS_OUTPUT.put_Line(rty_ligne.nomJoueur || ' ' || rty_ligne.prenomJoueur || ' ' || rty_ligne.eloJoueur);		
+	end loop;
+	close c_participantsTournoi;
+end;
+
+-- 11
 
 
 
+--
 
+set serveroutput on;
 
-
+-- 
 
 
 
