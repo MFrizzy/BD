@@ -93,7 +93,6 @@ end;
 -- 6
 
 Create or replace Function nbJoueursParClub(p_idClub in Clubs.idClub%TYPE) RETURN number is
-	v_idclub Clubs.idclub%TYPE;
 	v_nbJoueurs number;
 	v_nbclub Clubs.idclub%TYPE;
 begin	
@@ -191,37 +190,39 @@ end;
 
 -- 12 Pas fini
 
-create or replace procedure affichage JoueursParLigueEtClub(p_idLigue IN Ligues.idLigue%TYPE) is
-	cursor c_clubs is
-		select idClub
-		from Clubs
+create or replace procedure affichageJoueursParLigueEtClub(p_idLigue IN Ligues.idLigue%TYPE) is
+	cursor c_clubsDeLaLigue is
+		select *
+		from Clubs 
 		where idLigue=p_idLigue;
-	cursor c_joueurs;
-	rty_club ;
+	rty_club Clubs%ROWTYPE;
+	cursor c_joueurs (p_idClub IN Joueurs.idClub%TYPE) is 
+		select * 
+		from Joueurs 
+		where idclub=p_idClub;
+	rty_joueur Joueurs%ROWTYPE;
 begin
+	open c_clubsDeLaLigue;
 	loop
-		exit when c_clubs%NOTFOUND;
-		select * into 
-		DBMS_OUTPUT.put_Line(
+		fetch c_clubsDeLaLigue into rty_club;
+		exit when c_clubsDeLaLigue%NOTFOUND;
+		DBMS_OUTPUT.put_Line('Club : ' || rty_club.idClub || ' ' || rty_club.nomClub);
+		open c_joueurs(rty_club.idClub);
+		loop
+			fetch c_joueurs into rty_joueur;
+			exit when c_joueurs%NOTFOUND;
+			DBMS_OUTPUT.put_Line('-----> ' || rty_joueur.nomJoueur || ' ' || rty_joueur.prenomJoueur || ' ' || rty_joueur.dateNaissanceJoueur );
+		end loop;
+		close c_joueurs;
 	end loop;
+	close c_clubsDeLaLigue;
 end;
+
+call affichageJoueursParLigueEtClub('LAN');
 
 --
 
 set serveroutput on;
 
 -- 
-
-
-
-
-
-
-
-
-
-
-
-
-
 
