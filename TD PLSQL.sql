@@ -2,52 +2,48 @@
 -- 1
 
 declare
-v_nbJoueurs number;
+	v_nbJoueurs number;
 begin 
-select count(*) into v_nbJoueurs
-from Joueurs 
-where idClub='C1';
-DBMS_OUTPUT.put_Line('Il y a ' || v_nbJoueurs || ' joueur(s) dans le club C1');
+	select count(*) into v_nbJoueurs
+	from Joueurs 
+	where idClub='C1';
+	DBMS_OUTPUT.put_Line('Il y a ' || v_nbJoueurs || ' joueur(s) dans le club C1');
 End;
 
 -- 2
 
 Accept s_idclub prompt 'Entrez l identifiant du club : '
 declare
-v_idclub Clubs.idclub%TYPE;
-v_nbJoueurs number;
+	v_idclub Clubs.idclub%TYPE;
+	v_nbJoueurs number;
 begin
-v_idclub:='&s_idclub';
-select count(*) into v_nbJoueurs
-from Joueurs 
-where idClub=v_idclub;
-DBMS_OUTPUT.put_Line('Il y a ' || v_nbJoueurs || ' joueur(s) dans le club ' || v_idclub);
+	v_idclub:='&s_idclub';
+	select count(*) into v_nbJoueurs
+	from Joueurs 
+	where idClub=v_idclub;
+	DBMS_OUTPUT.put_Line('Il y a ' || v_nbJoueurs || ' joueur(s) dans le club ' || v_idclub);
 End;
 
 -- 3
 
 Accept s_idclub prompt 'Entrez l identifiant du club : '
 declare
-v_idclub Clubs.idclub%TYPE;
-v_nbJoueurs number;
-v_nbclub number;
+	v_idclub Clubs.idclub%TYPE;
+	v_nbJoueurs number;
+	v_nbclub number;
 begin
-v_idclub:='&s_idclub';
-select count(*) into v_nbclub
-from Clubs
-where idclub=v_idclub;
-
-if v_nbclub=0 then
-DBMS_OUTPUT.put_Line('Il n y a pas de club ' || v_idclub);
-
-else
-
-select count(*) into v_nbJoueurs
-from Joueurs 
-where idClub=v_idclub;
-DBMS_OUTPUT.put_Line('Il y a ' || v_nbJoueurs || ' joueur(s) dans le club ' || v_idclub);
-
-End if;
+	v_idclub:='&s_idclub';
+	select count(*) into v_nbclub
+	from Clubs
+	where idclub=v_idclub;
+	if v_nbclub=0 then
+		DBMS_OUTPUT.put_Line('Il n y a pas de club ' || v_idclub);
+	else
+		select count(*) into v_nbJoueurs
+		from Joueurs 
+		where idClub=v_idclub;
+		DBMS_OUTPUT.put_Line('Il y a ' || v_nbJoueurs || ' joueur(s) dans le club ' || v_idclub);
+	End if;
 End;
 
 -- 4
@@ -188,30 +184,40 @@ begin
 	affichageParticipantsTournoi(p_idTournoi);
 end;
 
--- 12 Pas fini
+-- 12
 
 create or replace procedure affichageJoueursParLigueEtClub(p_idLigue IN Ligues.idLigue%TYPE) is
 	cursor c_clubsDeLaLigue is
 		select *
 		from Clubs 
-		where idLigue=p_idLigue;
+		where idLigue=p_idLigue
+		order by nomClub ;
 	rty_club Clubs%ROWTYPE;
 	cursor c_joueurs (p_idClub IN Joueurs.idClub%TYPE) is 
-		select * 
-		from Joueurs 
-		where idclub=p_idClub;
-	rty_joueur Joueurs%ROWTYPE;
+		select nomJoueur, prenomJoueur, eloJoueur , count(idTournoi) as nbTournoi
+		from Joueurs J, Participer P 
+		where J.idclub=p_idClub and
+		J.idJoueur=P.idJoueur(+)
+		group by nomJoueur, prenomJoueur, eloJoueur
+		order by nbTournoi desc, eloJoueur desc;
+	rty_joueur c_joueurs%ROWTYPE;
 begin
 	open c_clubsDeLaLigue;
 	loop
 		fetch c_clubsDeLaLigue into rty_club;
 		exit when c_clubsDeLaLigue%NOTFOUND;
-		DBMS_OUTPUT.put_Line('Club : ' || rty_club.idClub || ' ' || rty_club.nomClub);
 		open c_joueurs(rty_club.idClub);
 		loop
 			fetch c_joueurs into rty_joueur;
 			exit when c_joueurs%NOTFOUND;
-			DBMS_OUTPUT.put_Line('-----> ' || rty_joueur.nomJoueur || ' ' || rty_joueur.prenomJoueur || ' ' || rty_joueur.dateNaissanceJoueur );
+		end loop;
+		DBMS_OUTPUT.put_Line('Club : ' || rty_club.idClub || ' ' || rty_club.nomClub || ' (' || c_joueurs%ROWCOUNT || ' joueurs)');
+		close c_joueurs;
+		open c_joueurs(rty_club.idClub);
+		loop
+			fetch c_joueurs into rty_joueur;
+			exit when c_joueurs%NOTFOUND;
+			DBMS_OUTPUT.put_Line('-----> ' || rty_joueur.nomJoueur || ' ' || rty_joueur.prenomJoueur || ' ' || rty_joueur.eloJoueur || ' a participé à ' || rty_joueur.nbTournoi || ' tournoi(s)');
 		end loop;
 		close c_joueurs;
 	end loop;
