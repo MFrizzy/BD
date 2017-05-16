@@ -88,7 +88,8 @@ end;
 
 -- 6
 
-Create or replace Function nbJoueursParClub(p_idClub in Clubs.idClub%TYPE) RETURN number is
+Create or replace Function nbJoueursParClub(
+	p_idClub in Clubs.idClub%TYPE) RETURN number is
 	v_nbJoueurs number;
 	v_nbclub Clubs.idclub%TYPE;
 begin	
@@ -111,7 +112,8 @@ from dual;
 
 -- 7
 
-create or replace Function nbJoueursParLigue(p_idLigue In Ligues.idLigue%TYPE) Return Number is
+create or replace Function nbJoueursParLigue(
+	p_idLigue In Ligues.idLigue%TYPE) Return Number is
 	retourn number;
 begin
 	select sum(nbJoueursParClub(idClub)) into retourn
@@ -130,7 +132,8 @@ SET  nbJoueursLigue=nbJoueursParLigue(idLigue);
 
 -- 8 
 
-create or replace Procedure affichageInfosTournoi(p_idTournoi IN Tournois.idTournoi%TYPE) is
+create or replace Procedure affichageInfosTournoi(
+	p_idTournoi IN Tournois.idTournoi%TYPE) is
 	rty_ligne Tournois%ROWTYPE;
 begin
 	select * into rty_ligne
@@ -157,7 +160,8 @@ end;
 
 -- 10
 
-create or replace Procedure affichageParticipantsTournoi(p_idTournoi IN Tournois.idTournoi%TYPE) is
+create or replace Procedure affichageParticipantsTournoi(
+	p_idTournoi IN Tournois.idTournoi%TYPE) is
 	rty_ligne Joueurs%ROWTYPE;	
 	cursor c_participantsTournoi  is
 		select *
@@ -178,7 +182,8 @@ end;
 
 -- 11
 
-create or replace procedure affichageToutTournoi(p_idTournoi IN Tournois.idTournoi%TYPE) is
+create or replace procedure affichageToutTournoi(
+	p_idTournoi IN Tournois.idTournoi%TYPE) is
 begin
 	affichageInfosTournoi(p_idTournoi);
 	affichageParticipantsTournoi(p_idTournoi);
@@ -186,7 +191,8 @@ end;
 
 -- 12
 
-create or replace procedure affichageJoueursParLigueEtClub(p_idLigue IN Ligues.idLigue%TYPE) is
+create or replace procedure affichageJoueursParLigueEtClub(
+	p_idLigue IN Ligues.idLigue%TYPE) is
 	cursor c_clubsDeLaLigue is
 		select *
 		from Clubs 
@@ -226,9 +232,54 @@ end;
 
 call affichageJoueursParLigueEtClub('LAN');
 
+-- 13
+
+create or replace function categorieJoueur(
+	p_dateNaissance IN Joueurs.dateNaissanceJoueur%TYPE, 
+	p_sexe IN Joueurs.sexeJoueur%TYPE) Return Varchar is
+	v_date varchar(3);
+begin
+	if p_dateNaissance<='31/12/1959' then
+		v_date := 'Vet';
+	end if;
+	if p_dateNaissance>='1/1/1960' AND p_dateNaissance<='31/12/1994' then
+		v_date := 'Sen';
+	end if;
+	if p_dateNaissance>='1/1/1995' then
+		v_date := 'Jun' ;
+	end if;
+	return v_date||p_sexe;
+end;
+
+select categorieJoueur('1/1/1960','M')
+from dual
+
+-- 14
+
+create or replace procedure affichageResultatRonde(
+	p_idTournoi IN Parties.idTournoi%TYPE,
+	p_numRonde IN Parties.numRonde%TYPE) is
+	cursor c_table is
+		select J1.nomJoueur as jn1, J1.prenomJoueur as jp1, categorieJoueur(J1.dateNaissanceJoueur,J1.sexeJoueur) as jcp1, J1.eloJoueur as je1, P.resultatPartie, J2.nomJoueur, J2.prenomJoueur, categorieJoueur(J2.dateNaissanceJoueur,J2.sexeJoueur) as jc2, J2.eloJoueur
+		from Joueurs J2, Parties P, Joueurs J1
+		where	P.idtournoi=p_idTournoi and
+				J1.idJoueur=P.idJoueurBlancs and
+				J2.idJoueur=P.idJoueurNoirs and
+				P.numRonde=p_numRonde
+				order by P.numtable;
+	rty c_table%ROWTYPE;
+begin
+	open c_table;
+	loop
+		fetch c_table into rty;
+		exit when c_table%NOTFOUND;
+		DBMS_OUTPUT.put_Line(rty.jn1 || ' ' || rty.jp1 || ' ' || rty.jcp1 || ' ' || rty.je1 || ' ' || rty.resultatPartie || ' ' || rty.nomJoueur || ' ' || rty.prenomJoueur || ' ' || rty.jc2 || ' ' || rty.eloJoueur);
+	end loop;
+	close c_table;
+end;
+
 --
 
 set serveroutput on;
 
 -- 
-
