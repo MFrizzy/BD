@@ -396,6 +396,31 @@ from dual;
 
 -- 19
 
+create or replace function resultatJoueurRonde(
+	p_idJoueur IN Joueurs.idJoueur%TYPE,
+	p_idTournoi IN Tournois.idTournoi%TYPE,
+	p_numRonde IN Parties.numRonde%TYPE)
+	return number is
+	v_param Parties.resultatPartie%TYPE;
+begin
+	select resultatPartie into v_param
+	from Parties
+	where 	idTournoi=p_idTournoi and
+			numRonde=p_numRonde and
+			(idJoueurNoirs=p_idJoueur or
+			idJoueurBlancs=p_idJoueur);
+	return resultatEnPoint(couleurJoueurRonde(p_idJoueur,p_idTournoi,p_numRonde),v_param);
+end;
+
+select resultatJoueurRonde('J1','T2',6)
+from dual;
+select resultatJoueurRonde('J1','T2',7)
+from dual;
+
+-- 20
+
+
+
 --
 
 set serveroutput on;0
