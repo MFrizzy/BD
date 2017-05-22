@@ -300,6 +300,43 @@ end;
 
 call affichageInfosJoueur('J10');
 call affichageInfosJoueur('J100');
+
+-- 16
+
+create or replace function resultatEnPoint( 
+	p_couleur IN Varchar,
+	p_resultat IN Parties.resultatPartie%TYPE)
+	return Number is
+	v_pJoueurB number :=0;
+	v_pJoueurN number :=0;
+begin
+	if p_resultat='1-0' then
+		v_pJoueurB :=1;
+		v_pJoueurN :=0;
+	else if p_resultat='0-1' then
+		v_pJoueurB :=0;
+		v_pJoueurN :=1;
+	else  
+		return .5;
+	end if;
+	end if;
+	if p_couleur='B' then
+		return v_pJoueurB;
+	else 
+		return v_pJoueurN;
+	end if;
+end;
+
+select resultatEnPoint('B','1-0')
+from dual;
+
+select resultatEnPoint('B','0-1')
+from dual;
+
+select resultatEnPoint('N','1/0')
+from dual;
+
+
 --
 
 set serveroutput on;0
