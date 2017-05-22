@@ -365,6 +365,37 @@ from dual;
 select couleurJoueurRonde('J1','T1',2)
 from dual;
 
+-- 18
+
+create or replace function adversaireJoueurRonde(
+	p_idJoueur IN Joueurs.idJoueur%TYPE,
+	p_idTournoi IN Tournois.idTournoi%TYPE,
+	p_numRonde IN Parties.numRonde%TYPE)
+	return Joueurs.idJoueur%TYPE is
+	rty_ligne Parties%ROWTYPE;
+begin
+	select * into rty_ligne
+	from Parties
+	where 	idTournoi=p_idTournoi and
+			numRonde=p_numRonde and
+			(idJoueurNoirs=p_idJoueur or
+			idJoueurBlancs=p_idJoueur);
+	if couleurJoueurRonde(p_idJoueur,p_idTournoi,p_numRonde)='B' then
+		return rty_ligne.idJoueurNoirs;
+	else if couleurJoueurRonde(p_idJoueur,p_idTournoi,p_numRonde)='N' then
+		return rty_ligne.idJoueurBlancs;
+	end if;
+	end if;
+	return null;
+end;
+
+select adversaireJoueurRonde('J10','T1',1)
+from dual;
+select adversaireJoueurRonde('J10','T1',2)
+from dual;
+
+-- 19
+
 --
 
 set serveroutput on;0
