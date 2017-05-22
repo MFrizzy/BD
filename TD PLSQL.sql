@@ -336,6 +336,34 @@ from dual;
 select resultatEnPoint('N','1/0')
 from dual;
 
+-- 17
+
+create or replace function couleurJoueurRonde(
+	p_idJoueur IN Joueurs.idJoueur%TYPE,
+	p_idTournoi IN Tournois.idTournoi%TYPE,
+	p_numRonde IN Parties.numRonde%TYPE)
+	return varchar is
+	rty_ligne Parties%ROWTYPE;
+begin
+	select * into rty_ligne
+	from Parties
+	where 	idTournoi=p_idTournoi and
+			numRonde=p_numRonde and
+			(idJoueurNoirs=p_idJoueur or
+			idJoueurBlancs=p_idJoueur);
+	if rty_ligne.idJoueurBlancs=p_idJoueur then
+		return 'B';
+	else if rty_ligne.idJoueurNoirs=p_idJoueur then
+		return 'N';
+	end if;
+	end if;
+	return null;
+end;
+
+select couleurJoueurRonde('J1','T1',1)
+from dual;
+select couleurJoueurRonde('J1','T1',2)
+from dual;
 
 --
 
