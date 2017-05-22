@@ -419,7 +419,31 @@ from dual;
 
 -- 20
 
+create or replace procedure affichagePartiesJoueurTournoi(
+	p_idJoueur IN Joueurs.idJoueur%TYPE,
+	p_idTournoi IN Tournois.idTournoi%TYPE) is
+	cursor c_table is
+		select * 
+		from parties
+		where (idJoueurBlancs=p_idJoueur or
+		idJoueurNoirs=p_idJoueur) and
+		idTournoi=p_idTournoi;
+	rty c_table%ROWTYPE;
+	rty_joueur Joueurs%ROWTYPE;
+begin
+	open c_table;
+	loop
+		fetch c_table into rty;
+		exit when c_table%NOTFOUND;
+		select * into rty_joueur
+		from Joueurs
+		where idJoueur=adversaireJoueurRonde(p_idJoueur,p_idTournoi,rty.numRonde);
+		DBMS_OUTPUT.put_Line('R' || rty.numRonde || ' ' || couleurJoueurRonde(p_idJoueur,p_idTournoi,rty.numRonde) || ' ' || rty_joueur.nomJoueur || ' ' || rty_joueur.prenomJoueur || ' ' || categorieJoueur(rty_joueur.dateNaissanceJoueur,rty_joueur.sexeJoueur) || ' ' || rty_joueur.eloJoueur || ' ' || resultatJoueurRonde(rty_joueur.idJoueur,p_idTournoi,rty.numRonde));
+	end loop;
+end;
 
+call affichagePartiesJoueurTournoi('J4','T3');
+call affichagePartiesJoueurTournoi('J6','T2');
 
 --
 
