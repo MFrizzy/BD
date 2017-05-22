@@ -278,8 +278,30 @@ begin
 	close c_table;
 end;
 
+-- 15
+
+create or replace procedure affichageInfosJoueur(
+	p_idJoueur IN Joueurs.idJoueur%TYPE) is
+	rty_ligne Joueurs%ROWTYPE;
+begin
+	select * into rty_ligne
+	from Joueurs
+	where idJoueur=p_idJoueur;
+	DBMS_OUTPUT.put_Line('Identifiant Joueur : ' || rty_ligne.idJoueur);
+	DBMS_OUTPUT.put_Line('Nom Joueur : ' || rty_ligne.nomJoueur);
+	DBMS_OUTPUT.put_Line('Prénom Joueur : ' || rty_ligne.prenomJoueur);
+	DBMS_OUTPUT.put_Line('Elo Joueur : ' || rty_ligne.eloJoueur);
+	DBMS_OUTPUT.put_Line('Catégorie Joueur : ' || categorieJoueur(rty_ligne.dateNaissanceJoueur,rty_ligne.sexeJoueur));
+	DBMS_OUTPUT.put_Line('Club Joueur : ' || rty_ligne.idClub);
+Exception
+	when No_data_found then
+		DBMS_OUTPUT.put_Line('Le joueur ' || p_idJoueur || ' n existe pas');
+end;
+
+call affichageInfosJoueur('J10');
+call affichageInfosJoueur('J100');
 --
 
-set serveroutput on;
+set serveroutput on;0
 
 -- 
