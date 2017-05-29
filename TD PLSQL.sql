@@ -445,6 +445,41 @@ end;
 call affichagePartiesJoueurTournoi('J4','T3');
 call affichagePartiesJoueurTournoi('J6','T2');
 
+-- 21
+
+create or replace function nbPointsJoueurTournoi(
+	p_idJoueur IN Joueurs.idJoueur%TYPE,
+	p_idTournoi IN Tournois.idTournoi%TYPE)
+	return number is
+	cursor c_table is
+		select numRonde 
+		from parties
+		where (idJoueurNoirs=p_idJoueur or idJoueurBlancs=p_idJoueur) and
+		idTournoi=p_idTournoi;
+	resultat number := 0;
+	rty c_table%ROWTYPE;
+begin
+	open c_table;
+	loop
+		fetch c_table into rty;
+		exit when c_table%NOTFOUND;
+		resultat := resultat + resultatJoueurRonde(p_idJoueur,p_idTournoi,rty.numRonde);
+	end loop;
+	close c_table;
+	return resultat;
+end;
+
+select nbPointsJoueurTournoi('J10','T1')
+from dual;
+select nbPointsJoueurTournoi('J8','T1')
+from dual;
+select nbPointsJoueurTournoi('J8','T2')
+from dual;
+
+-- 22
+
+
+
 --
 
 set serveroutput on;0
