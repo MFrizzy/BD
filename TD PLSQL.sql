@@ -573,8 +573,39 @@ call affichageResultatJoueurTournoi('J10','T3');
 
 -- 25
 
+create or replace function estInvaincu(
+	p_idJoueur IN Joueurs.idJoueur%TYPE,
+	p_idTournoi IN Tournois.idTournoi%TYPE)
+	return number is
+	nbPoints number := nbPointsJoueurTournoi(p_idJoueur,p_idTournoi);
+	compteur number := 0;
+	cursor c_table is
+		select numRonde 
+		from parties
+		where (idJoueurNoirs=p_idJoueur or idJoueurBlancs=p_idJoueur) and
+		idTournoi=p_idTournoi;
+	rty c_table%ROWTYPE;
+begin
+	open c_table;
+	loop
+		fetch c_table into rty;
+		exit when c_table%NOTFOUND;
+		compteur := compteur + 1;
+	end loop;
+	if compteur=nbPoints then
+		return 1;
+	else 
+		return 0;
+	end if;
+end;
+
+select estInvaincu('J10','T2')
+from dual;
+select estInvaincu('J27','T2')
+from dual;
+
 --
 
-set serveroutput on;0
+set serveroutput on;
 
 -- 
