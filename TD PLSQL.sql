@@ -418,7 +418,7 @@ select resultatJoueurRonde('J1','T2',7)
 from dual;
 
 -- 20
-
+	
 create or replace procedure affichagePartiesJoueurTournoi(
 	p_idJoueur IN Joueurs.idJoueur%TYPE,
 	p_idTournoi IN Tournois.idTournoi%TYPE) is
@@ -438,7 +438,7 @@ begin
 		select * into rty_joueur
 		from Joueurs
 		where idJoueur=adversaireJoueurRonde(p_idJoueur,p_idTournoi,rty.numRonde);
-		DBMS_OUTPUT.put_Line('R' || rty.numRonde || ' ' || couleurJoueurRonde(p_idJoueur,p_idTournoi,rty.numRonde) || ' ' || rty_joueur.nomJoueur || ' ' || rty_joueur.prenomJoueur || ' ' || categorieJoueur(rty_joueur.dateNaissanceJoueur,rty_joueur.sexeJoueur) || ' ' || rty_joueur.eloJoueur || ' ' || resultatJoueurRonde(rty_joueur.idJoueur,p_idTournoi,rty.numRonde));
+		DBMS_OUTPUT.put_Line('R' || rty.numRonde || ' ' || couleurJoueurRonde(p_idJoueur,p_idTournoi,rty.numRonde) || ' ' || rty_joueur.nomJoueur || ' ' || rty_joueur.prenomJoueur || ' ' || categorieJoueur(rty_joueur.dateNaissanceJoueur,rty_joueur.sexeJoueur) || ' ' || rty_joueur.eloJoueur || ' ' || resultatJoueurRonde(p_idJoueur,p_idTournoi,rty.numRonde));
 	end loop;
 end;
 
