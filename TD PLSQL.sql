@@ -478,6 +478,47 @@ from dual;
 
 -- 22
 
+create or replace function cumulatifJoueurTournoi(
+	p_idJoueur IN Joueurs.idJoueur%TYPE,
+	p_idTournoi IN Tournois.idTournoi%TYPE)
+	return number is
+	cursor c_table is
+		select numRonde 
+		from parties
+		where (idJoueurNoirs=p_idJoueur or idJoueurBlancs=p_idJoueur) and
+		idTournoi=p_idTournoi;
+	cursor c_table1 is
+		select numRonde 
+		from parties
+		where (idJoueurNoirs=p_idJoueur or idJoueurBlancs=p_idJoueur) and
+		idTournoi=p_idTournoi;
+	resultat number := 0;
+	rty c_table%ROWTYPE;
+	compteur number := 1;
+	rty1 c_table1%ROWTYPE;
+begin
+	open c_table;
+	loop
+		fetch c_table into rty;
+		exit when c_table%NOTFOUND;
+		open c_table1;
+		for c in 1..compteur loop
+			fetch c_table1 into rty1;
+			resultat := resultat +  resultatJoueurRonde(p_idJoueur,p_idTournoi,rty1.numRonde);
+		end loop;
+		close c_table1;
+		compteur := compteur + 1;
+	end loop;
+	close c_table;
+	return resultat;
+end;
+
+select cumulatifJoueurTournoi('J1','T2')
+from dual;
+select cumulatifJoueurTournoi('J4','T1')
+from dual;
+
+-- 23
 
 
 --
