@@ -520,6 +520,44 @@ from dual;
 
 -- 23
 
+create or replace function performanceEloJoueurTournoi(
+	p_idJoueur IN Joueurs.idJoueur%TYPE,
+	p_idTournoi IN Tournois.idTournoi%TYPE)
+	return number is
+	nbPoints number := nbPointsJoueurTournoi(p_idJoueur,p_idTournoi);
+	cursor c_table is
+		select numRonde 
+		from parties
+		where (idJoueurNoirs=p_idJoueur or idJoueurBlancs=p_idJoueur) and
+		idTournoi=p_idTournoi;
+	rty c_table%ROWTYPE;
+	compteur number := 0;
+	compteurElo number := 0;
+	buffElo number;
+begin
+	open c_table;
+	loop
+		fetch c_table into rty;
+		exit when c_table%NOTFOUND;
+		select eloJoueur into buffElo
+		from Joueurs
+		where idJoueur=adversaireJoueurRonde(p_idJoueur, p_idTournoi, rty.numRonde);
+		compteurElo := compteurElo + buffElo;
+		compteur := compteur + 1;
+	end loop;
+	return compteurElo/compteur + (nbPoints/compteur - 0.5)*750;
+end;
+
+select performanceEloJoueurTournoi('J26','T2')
+from dual;
+select performanceEloJoueurTournoi('J11','T2')
+from dual;
+select performanceEloJoueurTournoi('J8','T3')
+from dual;
+select performanceEloJoueurTournoi('J24','T2')
+from dual;
+
+-- 24 
 
 --
 
