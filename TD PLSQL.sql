@@ -559,6 +559,20 @@ from dual;
 
 -- 24 
 
+create or replace procedure affichageResultatJoueurTournoi(
+	p_idJoueur IN Joueurs.idJoueur%TYPE,
+	p_idTournoi IN Tournois.idTournoi%TYPE) is
+begin
+	DBMS_OUTPUT.put_Line('Nombre de points : ' || nbPointsJoueurTournoi(p_idJoueur,p_idTournoi));
+	DBMS_OUTPUT.put_Line('Cumulatif : ' || cumulatifJoueurTournoi(p_idJoueur,p_idTournoi));
+	DBMS_OUTPUT.put_Line('Perf : ' || performanceEloJoueurTournoi(p_idJoueur,p_idTournoi));
+end;
+
+call affichageResultatJoueurTournoi('J1','T2');
+call affichageResultatJoueurTournoi('J10','T3');
+
+-- 25
+
 --
 
 set serveroutput on;0
