@@ -216,3 +216,134 @@ CREATE OR REPLACE VIEW Affectations (
   FROM SALARIES S
   JOIN ETREAFFECTE E ON E.CODESALARIE=S.CODESALARIE
   JOIN EQUIPES A ON A.CODEEQUIPE=E.CODEEQUIPE
+
+
+  --
+
+-- OPTIMISATION
+
+-- Exercice 9
+
+-- a
+SELECT NOMPRODUIT
+FROM PRODUITS P
+JOIN LIGNESCOMMANDE L ON L.IDPRODUIT=P.IDPRODUIT
+JOIN COMMANDES C ON L.IDCOMMANDE=C.IDCOMMANDE
+JOIN CLIENTS Cl ON C.IDCLIENT=Cl.IDCLIENT
+WHERE Cl.NOMCLIENT='Palleja';
+
+-- consistent gets : 633
+
+-- b
+SELECT NOMPRODUIT
+FROM PRODUITS
+WHERE IDPRODUIT IN (
+  SELECT IDPRODUIT
+  FROM LIGNESCOMMANDE
+  WHERE IDCOMMANDE IN (
+    SELECT IDCOMMANDE
+    FROM COMMANDES
+    WHERE IDCLIENT IN (
+      SELECT IDCLIENT
+      FROM CLIENTS
+      WHERE NOMCLIENT='Palleja'
+    )
+  )
+);
+
+-- consistent gets : 13690
+
+-- c
+SELECT /*+ NO_QUERY_TRANSFORMATION */ NOMPRODUIT
+FROM PRODUITS
+WHERE IDPRODUIT IN (
+  SELECT IDPRODUIT
+  FROM LIGNESCOMMANDE
+  WHERE IDCOMMANDE IN (
+    SELECT IDCOMMANDE
+    FROM COMMANDES
+    WHERE IDCLIENT IN (
+      SELECT IDCLIENT
+      FROM CLIENTS
+      WHERE NOMCLIENT='Palleja'
+    )
+  )
+);
+-- consistent gets : 1065562
+
+-- Exercice 10
+
+-- a
+SELECT NOMPRODUIT
+FROM CLIENTS Cl
+JOIN COMMANDES C ON Cl.IDCLIENT=C.IDCLIENT
+JOIN LIGNESCOMMANDE L ON L.IDCOMMANDE=C.IDCOMMANDE
+JOIN PRODUITS P ON P.IDPRODUIT=L.IDPRODUIT
+WHERE Cl.NOMCLIENT='Palleja';
+
+-- consistent gets : 633
+-- Oracle fait l'ordre qu'il veut tout seul
+
+-- b
+SELECT /*+ ORDERED*/ NOMPRODUIT
+FROM PRODUITS P
+JOIN LIGNESCOMMANDE L ON L.IDPRODUIT=P.IDPRODUIT
+JOIN COMMANDES C ON L.IDCOMMANDE=C.IDCOMMANDE
+JOIN CLIENTS Cl ON C.IDCLIENT=Cl.IDCLIENT
+WHERE Cl.NOMCLIENT='Palleja';
+
+-- consistent gets : 1401
+-- ça consomme plus dans le mauvais ordre
+
+-- 10c la flemme
+
+
+
+
+-- Exercice 13
+
+-- a
+select count(*)
+From Clients C
+Join Commandes A ON C.idclient=A.idclient
+Where nomClient='Palleja' and prenomCLient='Xavier'
+
+-- b
+CREATE MATERIALIZED VIEW ClientsCA
+ENABLE QUERY REWRITE AS
+SELECT IDCLIENT, count(*), sum(MONTANTCOMMANDE)
+  FROM COMMANDES
+  GROUP BY IDCLIENT;
+
+-- c il utilise la vue matérialisée tout seul comme un grand
+
+-- d
+insert into commandes(idCommande, dateCommande, idclient, montantCommande) values (100001,'01/02/2014',10001,0);
+commit;
+
+-- e Il n'utilise plus la vue vu qu'on vient la modifier (et il faut la rafraichir elle est plus à jour)
+
+-- Exercice 14
+
+-- a
+drop materialized view clientsca;
+
+-- b
+CREATE MATERIALIZED VIEW LOG ON CLIENTS WITH SEQUENCE, ROWID (idclient,nomclient,prenomclient) INCLUDING NEW VALUES;
+CREATE MATERIALIZED VIEW LOG ON COMMANDES WITH SEQUENCE, ROWID (idclient,montantcommande) INCLUDING NEW VALUES;
+
+-- c
+CREATE MATERIALIZED VIEW ClientsCA
+REFRESH FAST ON COMMIT
+ENABLE QUERY REWRITE AS
+SELECT IDCLIENT, count(*), sum(MONTANTCOMMANDE)
+  FROM COMMANDES
+  GROUP BY IDCLIENT;
+
+-- d it works
+
+-- e
+INSERT INTO COMMANDES (IDCOMMANDE,DATECOMMANDE,IDCLIENT,MONTANTCOMMANDE)
+    VALUES (100002,'02/02/2014',10001,0);
+
+-- f mise à jour donc fonctionne
