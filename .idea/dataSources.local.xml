@@ -11,5 +11,11 @@
       <user-name>thomast</user-name>
       <introspection-schemas>*:THOMAST</introspection-schemas>
     </data-source>
+    <data-source name="IUT phpmyadmin" uuid="102184f4-bd15-4de0-99ac-113fd4fada86">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" />
+      <secret-storage>master_key</secret-storage>
+      <first-sync>true</first-sync>
+      <user-name>thomast</user-name>
+    </data-source>
   </component>
 </project>
