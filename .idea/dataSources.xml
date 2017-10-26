@@ -15,7 +15,7 @@
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://webinfo.iutmontp.univ-montp2.fr//thomast</jdbc-url>
+      <jdbc-url>jdbc:mysql://webinfo.iutmontp.univ-montp2.fr/ducreta</jdbc-url>
       <driver-properties>
         <property name="autoReconnect" value="true" />
         <property name="zeroDateTimeBehavior" value="convertToNull" />

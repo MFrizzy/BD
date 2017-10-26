@@ -12,10 +12,14 @@
       <introspection-schemas>*:THOMAST</introspection-schemas>
     </data-source>
     <data-source name="IUT phpmyadmin" uuid="102184f4-bd15-4de0-99ac-113fd4fada86">
-      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" />
+      <database-info product="MySQL" version="5.5.47-0+deb8u1" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.40 ( Revision: 402933ef52cad9aa82624e80acbea46e3a701ce6 )">
+        <extra-name-characters>#@</extra-name-characters>
+        <identifier-quote-string>`</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact" />
       <secret-storage>master_key</secret-storage>
-      <first-sync>true</first-sync>
-      <user-name>thomast</user-name>
+      <user-name>ducreta</user-name>
+      <introspection-schemas>*:ducreta</introspection-schemas>
     </data-source>
   </component>
 </project>

@@ -40,16 +40,25 @@
         <item name="" type="fce03ad6:DatabaseStructure$GroupNode" />
         <item name="COMMANDES" type="e3449647:DbNodeDescriptor" />
       </path>
+      <path>
+        <item name="" type="eadb38e5:DatabaseStructure$Root" />
+        <item name="IUT phpmyadmin" type="e3449647:DbNodeDescriptor" />
+      </path>
+      <path>
+        <item name="" type="eadb38e5:DatabaseStructure$Root" />
+        <item name="IUT phpmyadmin" type="e3449647:DbNodeDescriptor" />
+        <item name="ducreta" type="e3449647:DbNodeDescriptor" />
+      </path>
     </expand>
     <select />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="unidev.sql" pinned="false" current-in-tab="true">
+      <file leaf-file-name="unidev.sql" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/unidev.sql">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="538">
-              <caret line="323" column="2" lean-forward="false" selection-start-line="323" selection-start-column="2" selection-end-line="323" selection-end-column="2" />
+              <caret line="323" column="0" lean-forward="false" selection-start-line="323" selection-start-column="0" selection-end-line="323" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -167,6 +176,88 @@
           <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
             <state>
               <filtering enabled="true" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DATABASE/102184f4-bd15-4de0-99ac-113fd4fada86.SCHEMA:ducreta" pinned="false" current-in-tab="true">
+        <entry file="uml://DATABASE/102184f4-bd15-4de0-99ac-113fd4fada86.SCHEMA:ducreta">
+          <provider selected="true" editor-type-id="UmlEditorProvider">
+            <state>
+              <ID>DATABASE</ID>
+              <OriginalElement>102184f4-bd15-4de0-99ac-113fd4fada86.SCHEMA:ducreta</OriginalElement>
+              <nodes>
+                <node x="530.0" y="146.0">102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.trajets</node>
+                <node x="217.75" y="358.0">102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.ProductsOrders</node>
+                <node x="0.0" y="499.0">102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.Voiture</node>
+                <node x="-260.71794871794873" y="264.4358974358974">102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.Baskets</node>
+                <node x="58.0" y="179.0">102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.Products</node>
+                <node x="270.0" y="168.0">102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.Orders</node>
+                <node x="592.0" y="380.0">102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.passager</node>
+                <node x="614.0" y="0.0">102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.utilisateur</node>
+                <node x="111.25" y="0.0">102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.Users</node>
+              </nodes>
+              <notes />
+              <edges>
+                <edge source="102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.ProductsOrders" target="102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.Orders">
+                  <point x="36.0" y="-48.0" />
+                  <point x="325.75" y="333.0" />
+                  <point x="377.5" y="333.0" />
+                  <point x="0.0" y="70.0" />
+                </edge>
+                <edge source="102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.trajets" target="102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.utilisateur">
+                  <point x="0.0" y="-92.0" />
+                  <point x="635.5" y="121.0" />
+                  <point x="653.75" y="121.0" />
+                  <point x="-39.75" y="48.0" />
+                </edge>
+                <edge source="102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.Baskets" target="102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.Users">
+                  <point x="-36.0" y="-48.0" />
+                  <point x="-177.4102564102564" y="202.64102564102564" />
+                  <point x="-156.99358974358972" y="160.5897435897436" />
+                  <point x="-130.71153846153845" y="79.92307692307692" />
+                  <point x="159.5" y="143.0" />
+                  <point x="-48.25" y="59.0" />
+                </edge>
+                <edge source="102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.Baskets" target="102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.Products">
+                  <point x="36.0" y="-48.0" />
+                  <point x="108.0" y="333.0" />
+                  <point x="106.0" y="333.0" />
+                  <point x="-48.0" y="59.0" />
+                </edge>
+                <edge source="102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.ProductsOrders" target="102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.Products">
+                  <point x="-36.0" y="-48.0" />
+                  <point x="253.75" y="333.0" />
+                  <point x="202.0" y="333.0" />
+                  <point x="48.0" y="59.0" />
+                </edge>
+                <edge source="102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.passager" target="102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.trajets">
+                  <point x="-50.75" y="-36.5" />
+                  <point x="642.75" y="355.0" />
+                  <point x="635.5" y="355.0" />
+                  <point x="0.0" y="92.0" />
+                </edge>
+                <edge source="102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.Orders" target="102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.Users">
+                  <point x="0.0" y="-70.0" />
+                  <point x="377.5" y="143.0" />
+                  <point x="256.0" y="143.0" />
+                  <point x="48.25" y="59.0" />
+                </edge>
+                <edge source="102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.passager" target="102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.utilisateur">
+                  <point x="50.75" y="-36.5" />
+                  <point x="744.25" y="355.0" />
+                  <point x="751.5" y="355.0" />
+                  <point x="751.5" y="121.0" />
+                  <point x="733.25" y="121.0" />
+                  <point x="39.75" y="48.0" />
+                </edge>
+              </edges>
+              <settings layout="Hierarchic Group" zoom="0.9512195121951219" x="406.5" y="297.5" />
+              <SelectedNodes />
+              <Categories>
+                <Category>Key columns</Category>
+                <Category>Columns</Category>
+              </Categories>
             </state>
           </provider>
         </entry>
@@ -422,13 +513,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="das://table:/41b8e665/5d8a95fd-9aac-45ad-ac03-0a9c8b1b3579/THOMAST.CLIENTS">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Downloads/Creation BD Commandes.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="44">
@@ -558,8 +642,95 @@
     <entry file="file://$PROJECT_DIR$/unidev.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="538">
-          <caret line="323" column="2" lean-forward="false" selection-start-line="323" selection-start-column="2" selection-end-line="323" selection-end-column="2" />
+          <caret line="323" column="0" lean-forward="false" selection-start-line="323" selection-start-column="0" selection-end-line="323" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://table:/41b8e665/5d8a95fd-9aac-45ad-ac03-0a9c8b1b3579/THOMAST.CLIENTS">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://DATABASE/102184f4-bd15-4de0-99ac-113fd4fada86.SCHEMA:ducreta">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>DATABASE</ID>
+          <OriginalElement>102184f4-bd15-4de0-99ac-113fd4fada86.SCHEMA:ducreta</OriginalElement>
+          <nodes>
+            <node x="530.0" y="146.0">102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.trajets</node>
+            <node x="217.75" y="358.0">102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.ProductsOrders</node>
+            <node x="0.0" y="499.0">102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.Voiture</node>
+            <node x="-260.71794871794873" y="264.4358974358974">102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.Baskets</node>
+            <node x="58.0" y="179.0">102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.Products</node>
+            <node x="270.0" y="168.0">102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.Orders</node>
+            <node x="592.0" y="380.0">102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.passager</node>
+            <node x="614.0" y="0.0">102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.utilisateur</node>
+            <node x="111.25" y="0.0">102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.Users</node>
+          </nodes>
+          <notes />
+          <edges>
+            <edge source="102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.ProductsOrders" target="102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.Orders">
+              <point x="36.0" y="-48.0" />
+              <point x="325.75" y="333.0" />
+              <point x="377.5" y="333.0" />
+              <point x="0.0" y="70.0" />
+            </edge>
+            <edge source="102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.trajets" target="102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.utilisateur">
+              <point x="0.0" y="-92.0" />
+              <point x="635.5" y="121.0" />
+              <point x="653.75" y="121.0" />
+              <point x="-39.75" y="48.0" />
+            </edge>
+            <edge source="102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.Baskets" target="102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.Users">
+              <point x="-36.0" y="-48.0" />
+              <point x="-177.4102564102564" y="202.64102564102564" />
+              <point x="-156.99358974358972" y="160.5897435897436" />
+              <point x="-130.71153846153845" y="79.92307692307692" />
+              <point x="159.5" y="143.0" />
+              <point x="-48.25" y="59.0" />
+            </edge>
+            <edge source="102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.Baskets" target="102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.Products">
+              <point x="36.0" y="-48.0" />
+              <point x="108.0" y="333.0" />
+              <point x="106.0" y="333.0" />
+              <point x="-48.0" y="59.0" />
+            </edge>
+            <edge source="102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.ProductsOrders" target="102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.Products">
+              <point x="-36.0" y="-48.0" />
+              <point x="253.75" y="333.0" />
+              <point x="202.0" y="333.0" />
+              <point x="48.0" y="59.0" />
+            </edge>
+            <edge source="102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.passager" target="102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.trajets">
+              <point x="-50.75" y="-36.5" />
+              <point x="642.75" y="355.0" />
+              <point x="635.5" y="355.0" />
+              <point x="0.0" y="92.0" />
+            </edge>
+            <edge source="102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.Orders" target="102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.Users">
+              <point x="0.0" y="-70.0" />
+              <point x="377.5" y="143.0" />
+              <point x="256.0" y="143.0" />
+              <point x="48.25" y="59.0" />
+            </edge>
+            <edge source="102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.passager" target="102184f4-bd15-4de0-99ac-113fd4fada86.TABLE:ducreta.utilisateur">
+              <point x="50.75" y="-36.5" />
+              <point x="744.25" y="355.0" />
+              <point x="751.5" y="355.0" />
+              <point x="751.5" y="121.0" />
+              <point x="733.25" y="121.0" />
+              <point x="39.75" y="48.0" />
+            </edge>
+          </edges>
+          <settings layout="Hierarchic Group" zoom="0.9512195121951219" x="406.5" y="297.5" />
+          <SelectedNodes />
+          <Categories>
+            <Category>Key columns</Category>
+            <Category>Columns</Category>
+          </Categories>
         </state>
       </provider>
     </entry>

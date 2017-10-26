@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="IUT phpmyadmin">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.4">
+    <root id="1"/>
+    <schema id="2" parent="1" name="ducreta">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="information_schema"/>
+    <table id="4" parent="2" name="Baskets"/>
+    <table id="5" parent="2" name="Orders"/>
+    <table id="6" parent="2" name="Products"/>
+    <table id="7" parent="2" name="ProductsOrders"/>
+    <table id="8" parent="2" name="Users"/>
+    <table id="9" parent="2" name="Voiture"/>
+    <table id="10" parent="2" name="passager"/>
+    <table id="11" parent="2" name="trajets"/>
+    <table id="12" parent="2" name="utilisateur"/>
+    <column id="13" parent="4" name="idUser">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="14" parent="4" name="idProduct">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="15" parent="4" name="quantity">
+      <Position>3</Position>
+      <DataType>int(3)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="16" parent="4" name="FK_idProduct">
+      <ColNames>idProduct</ColNames>
+    </index>
+    <key id="17" parent="4" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>idUser
+idProduct</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="18" parent="4" name="FK_idUser">
+      <ColNames>idUser</ColNames>
+      <RefSchemaName>ducreta</RefSchemaName>
+      <RefTableName>Users</RefTableName>
+      <RefColNames>idUser</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <foreign-key id="19" parent="4" name="FK_idProduct">
+      <ColNames>idProduct</ColNames>
+      <RefSchemaName>ducreta</RefSchemaName>
+      <RefTableName>Products</RefTableName>
+      <RefColNames>idProduct</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <column id="20" parent="5" name="idOrder">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="21" parent="5" name="idUser">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="22" parent="5" name="date">
+      <Position>3</Position>
+      <DataType>date|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="23" parent="5" name="heure">
+      <Position>4</Position>
+      <DataType>time|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="24" parent="5" name="adresse Livraison">
+      <Position>5</Position>
+      <DataType>varchar(128)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="25" parent="5" name="idUser">
+      <ColNames>idUser</ColNames>
+    </index>
+    <key id="26" parent="5" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>idOrder</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="27" parent="5" name="FK_idUser2">
+      <ColNames>idUser</ColNames>
+      <RefSchemaName>ducreta</RefSchemaName>
+      <RefTableName>Users</RefTableName>
+      <RefColNames>idUser</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <column id="28" parent="6" name="idProduct">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="29" parent="6" name="productName">
+      <Position>2</Position>
+      <DataType>varchar(32)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="30" parent="6" name="prix">
+      <Position>3</Position>
+      <DataType>float|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="31" parent="6" name="description">
+      <Position>4</Position>
+      <DataType>text|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="32" parent="6" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>idProduct</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="33" parent="7" name="idProduct">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="34" parent="7" name="idOrder">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="35" parent="7" name="quantity">
+      <Position>3</Position>
+      <DataType>int(3)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="36" parent="7" name="FK_idOrder">
+      <ColNames>idOrder</ColNames>
+    </index>
+    <key id="37" parent="7" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>idProduct
+idOrder</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="38" parent="7" name="FK_idProduct2">
+      <ColNames>idProduct</ColNames>
+      <RefSchemaName>ducreta</RefSchemaName>
+      <RefTableName>Products</RefTableName>
+      <RefColNames>idProduct</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <foreign-key id="39" parent="7" name="FK_idOrder">
+      <ColNames>idOrder</ColNames>
+      <RefSchemaName>ducreta</RefSchemaName>
+      <RefTableName>Orders</RefTableName>
+      <RefColNames>idOrder</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <column id="40" parent="8" name="idUser">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="41" parent="8" name="mailUser">
+      <Position>2</Position>
+      <DataType>varchar(64)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="42" parent="8" name="passwordUser">
+      <Position>3</Position>
+      <DataType>varchar(32)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="43" parent="8" name="activated">
+      <Position>4</Position>
+      <DataType>tinyint(1)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="44" parent="8" name="idUser">
+      <ColNames>idUser</ColNames>
+    </index>
+    <key id="45" parent="8" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>idUser</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="46" parent="9" name="immatriculation">
+      <Position>1</Position>
+      <DataType>varchar(8)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="47" parent="9" name="couleur">
+      <Position>2</Position>
+      <DataType>varchar(12)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="48" parent="9" name="marque">
+      <Position>3</Position>
+      <DataType>varchar(25)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="49" parent="9" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>immatriculation</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="50" parent="10" name="trajet_id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="51" parent="10" name="utilisateur_login">
+      <Position>2</Position>
+      <DataType>varchar(32)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="52" parent="10" name="utilisateur">
+      <ColNames>utilisateur_login</ColNames>
+    </index>
+    <key id="53" parent="10" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>trajet_id
+utilisateur_login</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="54" parent="10" name="trajet">
+      <ColNames>trajet_id</ColNames>
+      <RefSchemaName>ducreta</RefSchemaName>
+      <RefTableName>trajets</RefTableName>
+      <RefColNames>id</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <foreign-key id="55" parent="10" name="utilisateur">
+      <ColNames>utilisateur_login</ColNames>
+      <RefSchemaName>ducreta</RefSchemaName>
+      <RefTableName>utilisateur</RefTableName>
+      <RefColNames>login</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <column id="56" parent="11" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="57" parent="11" name="depart">
+      <Position>2</Position>
+      <DataType>varchar(32)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="58" parent="11" name="arrivee">
+      <Position>3</Position>
+      <DataType>varchar(32)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="59" parent="11" name="date">
+      <Position>4</Position>
+      <DataType>date|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="60" parent="11" name="nbplaces">
+      <Position>5</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="61" parent="11" name="prix">
+      <Position>6</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="62" parent="11" name="conducteur_login">
+      <Position>7</Position>
+      <DataType>varchar(32)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="63" parent="11" name="conducteur_login">
+      <ColNames>conducteur_login</ColNames>
+    </index>
+    <key id="64" parent="11" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="65" parent="11" name="Conducteur">
+      <ColNames>conducteur_login</ColNames>
+      <RefSchemaName>ducreta</RefSchemaName>
+      <RefTableName>utilisateur</RefTableName>
+      <RefColNames>login</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <column id="66" parent="12" name="login">
+      <Position>1</Position>
+      <DataType>varchar(32)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="67" parent="12" name="nom">
+      <Position>2</Position>
+      <DataType>varchar(32)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="68" parent="12" name="prenom">
+      <Position>3</Position>
+      <DataType>varchar(32)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="69" parent="12" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>login</ColNames>
+      <Primary>1</Primary>
+    </key>
+  </database-model>
+</dataSource>
